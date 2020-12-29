@@ -59,7 +59,7 @@ function handleClick() {
 function listenDeviceOrientationEvent() {
   window.addEventListener("deviceorientation", function (event) {
     isPreviousPositive = isPositive;
-    isPositive = degree > - 90 && degree < 90;
+    isPositive = event.beta > - 90 && event.beta < 90;
   });
 }
 
@@ -94,12 +94,13 @@ setInterval(function() {
   speechSynthesis.speak(utterance);
 
   if (isPositive) {
-    ctx.fillStyle = '#000000';
+    ctx.fillStyle = "#000000";
   } else {
-    ctx.fillStyle = '#ff0000';
+    ctx.fillStyle = "#ff0000";
   }
+  ctx.fillStyle = "#ff0000" ;
 
-  ctx.fillText(word, Math.random() * canvas.width, Math.random() * canvas.height)
+  ctx.fillText(word, Math.random() * canvas.width, Math.random() * canvas.height);
 }, 800);
 
 function resizeCanvas() {
