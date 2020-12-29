@@ -74,12 +74,18 @@ $(function() {
 window.addEventListener('resize', resizeCanvas);
 
 setInterval(function() {
+
   ctx.font = "bold 70px sans-serif";
-  
+
   var word = positiveWords[Math.floor(positiveWords.length * Math.random())];
   if (degree < -90 || degree > 90) {
     word = negativeWords[Math.floor(negativeWords.length * Math.random())]
   }
+
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = 'ja-JP';
+  utterance.rate = 1.2;
+  speechSynthesis.speak(utterance);
 
   ctx.fillText(word, Math.random() * canvas.width, Math.random() * canvas.height)
 }, 300)
