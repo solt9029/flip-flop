@@ -91,8 +91,8 @@ setInterval(function() {
 }, 800);
 
 function resizeCanvas() {
-  canvas.width = window.innerWidth - 10;
-  canvas.height = window.innerHeight - 10;
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
   if (ctx && canvas) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
