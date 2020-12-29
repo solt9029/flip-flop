@@ -1,4 +1,5 @@
 var canvas, ctx;
+var degree = 0;
 
 const positiveWords = [
   '嬉しい',
@@ -56,31 +57,37 @@ function handleClick() {
 
 function listenDeviceOrientationEvent() {
   window.addEventListener("deviceorientation", function (event) {
-    document.getElementById('test').innerHTML = event.alpha + ',' + event.beta + ',' + event.gamma
+    degree = event.beta;
   });
 }
 
 $(function() {
-  // canvas = document.getElementById('canvas');
-  // ctx = canvas.getContext('2d');
-  // resizeCanvas();
+  canvas = document.getElementById('canvas');
+  ctx = canvas.getContext('2d');
+  resizeCanvas();
 
   $('.modal').modal({
     keyboard: false,
   });
 });
 
-// window.addEventListener('resize', resizeCanvas);
+window.addEventListener('resize', resizeCanvas);
 
-// setInterval(function() {
-//   ctx.font = "bold 70px sans-serif";
-//   ctx.fillText(positiveWords[Math.floor(positiveWords.length * Math.random())], Math.random() * canvas.width, Math.random() * canvas.height)
-// }, 300)
+setInterval(function() {
+  ctx.font = "bold 70px sans-serif";
+  
+  var word = positiveWords[Math.floor(positiveWords.length * Math.random())];
+  if (degree < -90 || degree > 90) {
+    word = negativeWords[Math.floor(negativeWords.length * Math.random())]
+  }
 
-// function resizeCanvas() {
-//   canvas.width = window.innerWidth - 20;
-//   canvas.height = window.innerHeight - 20;
-//   if (ctx && canvas) {
-//     ctx.clearRect(0, 0, canvas.width, canvas.height);
-//   }
-// }
+  ctx.fillText(word, Math.random() * canvas.width, Math.random() * canvas.height)
+}, 300)
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth - 20;
+  canvas.height = window.innerHeight - 20;
+  if (ctx && canvas) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+}
