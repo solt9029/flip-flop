@@ -105,7 +105,7 @@ setInterval(function() {
   ctx.fillText(word, Math.random() * canvas.width, Math.random() * canvas.height);
 
   isPreviousPositiveRead = true;
-}, 800);
+}, 500);
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
