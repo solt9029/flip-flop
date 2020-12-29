@@ -98,7 +98,6 @@ setInterval(function() {
   } else {
     ctx.fillStyle = "#ff0000";
   }
-  ctx.fillStyle = "#ff0000" ;
 
   ctx.fillText(word, Math.random() * canvas.width, Math.random() * canvas.height);
 }, 800);
