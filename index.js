@@ -85,6 +85,7 @@ setInterval(function() {
   }
   if (isPositive !== isPreviousPositive) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    speechSynthesis.cancel();
   }
 
   const utterance = new SpeechSynthesisUtterance(word);
