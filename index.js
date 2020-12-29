@@ -59,7 +59,7 @@ function handleClick() {
 function listenDeviceOrientationEvent() {
   window.addEventListener("deviceorientation", function (event) {
     isPreviousPositive = isPositive;
-    isPositive = event.beta > - 90 && event.beta < 90;
+    isPositive = event.beta > -90 && event.beta < 90;
   });
 }
 
