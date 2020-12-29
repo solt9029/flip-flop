@@ -39,23 +39,48 @@ const negativeWords = [
   '憎い'
 ];
 
+function handleClick() {
+  if (DeviceOrientationEvent.requestPermission) {
+    DeviceOrientationEvent.requestPermission()
+      .then((permissionState) => {
+        if (permissionState !== "granted") {
+          return;
+        }
+        listenDeviceOrientationEvent();
+      })
+      .catch(console.error);
+    return;
+  }
+  listenDeviceOrientationEvent();
+}
+
+function listenDeviceOrientationEvent() {
+  window.addEventListener("deviceorientation", function (event) {
+    document.getElementById('test').innerHTML = event.alpha + ',' + event.beta + ',' + event.gamma
+  });
+}
+
 $(function() {
-  canvas = document.getElementById('canvas');
-  ctx = canvas.getContext('2d');
-  resizeCanvas();
+  // canvas = document.getElementById('canvas');
+  // ctx = canvas.getContext('2d');
+  // resizeCanvas();
+
+  $('.modal').modal({
+    keyboard: false,
+  });
 });
 
-window.addEventListener('resize', resizeCanvas);
+// window.addEventListener('resize', resizeCanvas);
 
-setInterval(function() {
-  ctx.font = "bold 70px sans-serif";
-  ctx.fillText(positiveWords[Math.floor(positiveWords.length * Math.random())], Math.random() * canvas.width, Math.random() * canvas.height)
-}, 300)
+// setInterval(function() {
+//   ctx.font = "bold 70px sans-serif";
+//   ctx.fillText(positiveWords[Math.floor(positiveWords.length * Math.random())], Math.random() * canvas.width, Math.random() * canvas.height)
+// }, 300)
 
-function resizeCanvas() {
-  canvas.width = window.innerWidth - 20;
-  canvas.height = window.innerHeight - 20;
-  if (ctx && canvas) {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  }
-}
+// function resizeCanvas() {
+//   canvas.width = window.innerWidth - 20;
+//   canvas.height = window.innerHeight - 20;
+//   if (ctx && canvas) {
+//     ctx.clearRect(0, 0, canvas.width, canvas.height);
+//   }
+// }
