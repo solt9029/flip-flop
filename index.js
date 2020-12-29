@@ -1,6 +1,7 @@
 var canvas, ctx;
 var isPositive = true;
 var isPreviousPositive = true;
+var isPreviousPositiveRead = false;
 
 const positiveWords = [
   '嬉しい',
@@ -58,7 +59,10 @@ function handleClick() {
 
 function listenDeviceOrientationEvent() {
   window.addEventListener("deviceorientation", function (event) {
-    isPreviousPositive = isPositive;
+    if (isPreviousPositiveRead) {
+      isPreviousPositive = isPositive;
+      isPreviousPositiveRead = false;
+    }
     isPositive = event.beta > -90 && event.beta < 90;
   });
 }
@@ -76,7 +80,6 @@ $(function() {
 window.addEventListener('resize', resizeCanvas);
 
 setInterval(function() {
-
   ctx.font = "bold 70px sans-serif";
 
   var word = negativeWords[Math.floor(negativeWords.length * Math.random())];
@@ -100,6 +103,8 @@ setInterval(function() {
   }
 
   ctx.fillText(word, Math.random() * canvas.width, Math.random() * canvas.height);
+
+  isPreviousPositiveRead = true;
 }, 800);
 
 function resizeCanvas() {
