@@ -88,7 +88,7 @@ setInterval(function() {
   speechSynthesis.speak(utterance);
 
   ctx.fillText(word, Math.random() * canvas.width, Math.random() * canvas.height)
-}, 300)
+}, 800);
 
 function resizeCanvas() {
   canvas.width = window.innerWidth - 10;
