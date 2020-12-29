@@ -1,5 +1,6 @@
 var canvas, ctx;
-var degree = 0;
+var isPositive = true;
+var isPreviousPositive = true;
 
 const positiveWords = [
   '嬉しい',
@@ -57,7 +58,8 @@ function handleClick() {
 
 function listenDeviceOrientationEvent() {
   window.addEventListener("deviceorientation", function (event) {
-    degree = event.beta;
+    isPreviousPositive = isPositive;
+    isPositive = degree > - 90 && degree < 90;
   });
 }
 
@@ -77,15 +79,24 @@ setInterval(function() {
 
   ctx.font = "bold 70px sans-serif";
 
-  var word = positiveWords[Math.floor(positiveWords.length * Math.random())];
-  if (degree < -90 || degree > 90) {
-    word = negativeWords[Math.floor(negativeWords.length * Math.random())]
+  var word = negativeWords[Math.floor(negativeWords.length * Math.random())];
+  if (isPositive) {
+    word = positiveWords[Math.floor(positiveWords.length * Math.random())]
+  }
+  if (isPositive !== isPreviousPositive) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
 
   const utterance = new SpeechSynthesisUtterance(word);
   utterance.lang = 'ja-JP';
   utterance.rate = 1.2;
   speechSynthesis.speak(utterance);
+
+  if (isPositive) {
+    ctx.fillStyle = '#000000';
+  } else {
+    ctx.fillStyle = '#ff0000';
+  }
 
   ctx.fillText(word, Math.random() * canvas.width, Math.random() * canvas.height)
 }, 800);
